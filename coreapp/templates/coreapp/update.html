@@ -12,6 +12,8 @@
                 {% for i in fm %}
                 {{i.label_tag}} {{i}} {{i.errors | striptags }} <br>
                 {% endfor %}
+                <input type="submit" class='btn btn-success' value="Save">
+                <a href="{% url 'deshbord' %}" class= 'btn btn-info'>Cancel</a>
             </form>
         </div>
     </div>

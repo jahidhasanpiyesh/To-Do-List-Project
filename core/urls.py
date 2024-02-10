@@ -20,11 +20,11 @@ from coreapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.us_login, name='login'),
+    path('login/', views.us_login, name='login'),
     path('logout/', views.us_logout, name='logout'),
     path('register/', views.register, name='register'),
     path('deshbord/', views.deshbord, name='deshbord'),
     path('remove/<int:id>/', views.PostRemove, name='remove'),
     path('add/', views.Postadd, name='add'),
-    path('update/', views.Postupdate, name='update'),
+    path('update/<int:id>/', views.Postupdate, name='update'),
 ]

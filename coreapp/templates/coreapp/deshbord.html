@@ -12,16 +12,17 @@
           <div class="topnav">
             <input type="text" placeholder="Search..">
             <input type="submit" value="Search">
+            {% if fm %}
             <a href="{% url 'add' %}" class='text-decoration-none text-white fs-2 ' style='float: right;'>&#43;</a>
           </div> 
 
             <table class="table table-hover">
-              {% if fm %}
+              
               {% for i in fm %}
                 <tbody>
                   <tr>
                     <th scope="row">{{i.id}}</th>
-                    <td><a href="{% url 'update' %}" class='text-decoration-none text-black'>{{i.title}}</a></td>
+                    <td><a href="{% url 'update' i.id %}" class='text-decoration-none text-black'>{{i.title}}</a></td>
                     <td></td>
                     <td></td>
                     <td>
@@ -30,9 +31,10 @@
                   </tr>
                 </tbody>
               {% endfor %}
-              {% endif %}
+              {% else %}
+              <p class='text-center my-5'>No new tasks are created.<br>Create a <a href="{% url 'add' %}" class='text-decoration-none text-warning'>New task </a>!</p>
             </table>
-            
+            {% endif %}
         </div>
     </div>
 </div>

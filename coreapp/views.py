@@ -26,7 +26,7 @@ def us_login(request):
     
 def us_logout(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/login/')
 
 def register(request):
     if request.method == 'POST':
@@ -46,22 +46,42 @@ def deshbord(request):
         return HttpResponseRedirect('/login/')
 
 def Postadd(request):
-    if request.method == 'POST':
-        fm = add_post_forms(request.POST)
-        if fm.is_valid():
-            fm.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            fm = add_post_forms(request.POST)
+            if fm.is_valid():
+                fm.save()
+                return HttpResponseRedirect('/deshbord/')
+        else:
             fm = add_post_forms()
+        return render(request,'coreapp/postadd.html',{'fm':fm}) 
     else:
-        fm = add_post_forms()
-    return render(request,'coreapp/postadd.html',{'fm':fm})
+        return HttpResponseRedirect('/login/')
 
-def Postupdate(request):
-    return render(request, 'coreapp/update.html')
 
+def Postupdate(request, id):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            pi = add_post.objects.get(pk=id)
+            fm = add_post_forms(request.POST, instance=pi)
+            if fm.is_valid():
+                fm.save()
+                return HttpResponseRedirect('/deshbord/')
+        else:
+            pi = add_post.objects.get(pk=id)
+            fm = add_post_forms(instance=pi)        
+            return render(request, 'coreapp/update.html',{'fm':fm})
+    else:
+        return HttpResponseRedirect('/login/')
+    
+    
 def PostRemove(request,id):
-    if request.method =='POST':
-        pi = add_post.objects.get(pk=id)
-        pi.delete()
-        return HttpResponseRedirect('/deshbord/')
+    if request.user.is_authenticated:
+        if request.method =='POST':
+            pi = add_post.objects.get(pk=id)
+            pi.delete()
+            return HttpResponseRedirect('/deshbord/')
+        else:
+            return render(request, 'coreapp/remove.html')
     else:
-        return render(request, 'coreapp/remove.html')
+        return HttpResponseRedirect('/login/')
