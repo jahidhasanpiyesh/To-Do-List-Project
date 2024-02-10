@@ -58,6 +58,10 @@ def Postadd(request):
 def Postupdate(request):
     return render(request, 'coreapp/update.html')
 
-def PostRemove(request):
-    
-    return render(request, 'coreapp/remove.html')
+def PostRemove(request,id):
+    if request.method =='POST':
+        pi = add_post.objects.get(pk=id)
+        pi.delete()
+        return HttpResponseRedirect('/deshbord/')
+    else:
+        return render(request, 'coreapp/remove.html')
