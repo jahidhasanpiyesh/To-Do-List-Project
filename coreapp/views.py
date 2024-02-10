@@ -44,3 +44,20 @@ def deshbord(request):
         return render(request, 'coreapp/deshbord.html',{'fm':post})
     else:
         return HttpResponseRedirect('/login/')
+
+def Postadd(request):
+    if request.method == 'POST':
+        fm = add_post_forms(request.POST)
+        if fm.is_valid():
+            fm.save()
+            fm = add_post_forms()
+    else:
+        fm = add_post_forms()
+    return render(request,'coreapp/postadd.html',{'fm':fm})
+
+def Postupdate(request):
+    return render(request, 'coreapp/update.html')
+
+def PostRemove(request):
+    
+    return render(request, 'coreapp/remove.html')

@@ -25,5 +25,5 @@ class add_post_forms(forms.ModelForm):
         labels = {'title':'Title', 'desh':'Description'}
         widgets = {
             'title':forms.TextInput(attrs={'class':'form-control'}),
-            'title':forms.Textarea(attrs={'class':'form-control'})
+            'desh':forms.Textarea(attrs={'class':'form-control'})
         }

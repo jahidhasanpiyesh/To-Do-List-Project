@@ -7,30 +7,32 @@
         <p class='text-end'><a class="text-white" href="{% url 'logout' %}" style="text-decoration: none" >Logout</a></p>
     </div>
     <div class='border bg-secondary text-white'>
-        <div class="col-sm-10 my-4 offset-1">
-            {% if fm %}
-            {% for i in fm %}
+        <div class="col-sm-10 my-4 offset-1"> 
+
+          <div class="topnav">
+            <input type="text" placeholder="Search..">
+            <input type="submit" value="Search">
+            <a href="{% url 'add' %}" class='text-decoration-none text-white fs-2 ' style='float: right;'>&#43;</a>
+          </div> 
+
             <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                  </tr>
-                </thead>
+              {% if fm %}
+              {% for i in fm %}
                 <tbody>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{i.id}}</th>
+                    <td><a href="{% url 'update' %}" class='text-decoration-none text-black'>{{i.title}}</a></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <a href="{% url 'remove' %}" class='text-decoration-none'>&#10005;</a>
+                    </td>
                   </tr>
-
                 </tbody>
-              </table>
-            {% endfor %}
-            {% endif %}
+              {% endfor %}
+              {% endif %}
+            </table>
+            
         </div>
     </div>
 </div>

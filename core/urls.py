@@ -24,4 +24,7 @@ urlpatterns = [
     path('logout/', views.us_logout, name='logout'),
     path('register/', views.register, name='register'),
     path('deshbord/', views.deshbord, name='deshbord'),
+    path('remove/', views.PostRemove, name='remove'),
+    path('add/', views.Postadd, name='add'),
+    path('update/', views.Postupdate, name='update'),
 ]
