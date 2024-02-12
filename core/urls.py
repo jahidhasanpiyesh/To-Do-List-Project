@@ -27,4 +27,5 @@ urlpatterns = [
     path('remove/<int:id>/', views.PostRemove, name='remove'),
     path('add/', views.Postadd, name='add'),
     path('update/<int:id>/', views.Postupdate, name='update'),
+    path('search/', views.search, name='search'),
 ]

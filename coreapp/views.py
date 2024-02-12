@@ -3,7 +3,7 @@ from .forms import userforms, loginforms, add_post_forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import add_post
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -32,8 +32,9 @@ def register(request):
     if request.method == 'POST':
         fm = userforms(request.POST)
         if fm.is_valid():
+            messages.warning(request, 'Your Account Created Successfully !')
             fm.save()
-            fm= userforms()
+            return HttpResponseRedirect('/login/')
     else:
         fm = userforms()
     return render(request, 'coreapp/register.html', {'fm':fm})
@@ -45,11 +46,24 @@ def deshbord(request):
     else:
         return HttpResponseRedirect('/login/')
 
+def search(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            searched = request.POST['searched']
+            fm = add_post.objects.filter(title__contains=searched)
+            count_data = fm.count()
+            return render(request,'coreapp/search.html',{'searched':searched,'fm':fm, 'count_data':count_data})
+        else:
+            return HttpResponseRedirect('/deshbord/')
+    else:
+        return HttpResponseRedirect('/login/')
+        
 def Postadd(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             fm = add_post_forms(request.POST)
             if fm.is_valid():
+                messages.success(request, 'Your Post Created Successfully!!')
                 fm.save()
                 return HttpResponseRedirect('/deshbord/')
         else:
@@ -65,6 +79,7 @@ def Postupdate(request, id):
             pi = add_post.objects.get(pk=id)
             fm = add_post_forms(request.POST, instance=pi)
             if fm.is_valid():
+                messages.success(request, 'Your Post Updated Successfully!!')
                 fm.save()
                 return HttpResponseRedirect('/deshbord/')
         else:
@@ -79,6 +94,7 @@ def PostRemove(request,id):
     if request.user.is_authenticated:
         if request.method =='POST':
             pi = add_post.objects.get(pk=id)
+            messages.warning(request, 'Your Post Deleted!!')
             pi.delete()
             return HttpResponseRedirect('/deshbord/')
         else:
