@@ -41,7 +41,9 @@ def register(request):
 
 def deshbord(request):
     if request.user.is_authenticated:
-        post = add_post.objects.all()
+        print(request.user)
+        post = add_post.objects.filter(user=request.user)
+        print(post)
         return render(request, 'coreapp/deshbord.html',{'fm':post})
     else:
         return HttpResponseRedirect('/login/')
@@ -63,11 +65,13 @@ def Postadd(request):
         if request.method == 'POST':
             fm = add_post_forms(request.POST)
             if fm.is_valid():
+                post = fm.save(commit=False) # auto save off 
+                post.user = request.user 
+                post.save()
                 messages.success(request, 'Your Post Created Successfully!!')
-                fm.save()
                 return HttpResponseRedirect('/deshbord/')
         else:
-            fm = add_post_forms()
+            fm = add_post_forms() 
         return render(request,'coreapp/postadd.html',{'fm':fm}) 
     else:
         return HttpResponseRedirect('/login/')
