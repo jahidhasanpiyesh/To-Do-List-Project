@@ -18,6 +18,9 @@ def us_login(request):
                 if user is not None:
                     login(request,user)
                     return HttpResponseRedirect('/deshbord/')
+            else:
+                messages.warning(request,'You do not have such an account !')
+                return HttpResponseRedirect('/login/')
         else:           
             fm = loginforms()
         return render(request, 'coreapp/login.html', {'fm':fm})
@@ -52,7 +55,7 @@ def search(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             searched = request.POST['searched']
-            fm = add_post.objects.filter(title__contains=searched)
+            fm = add_post.objects.filter(user=request.user,title__contains=searched)
             count_data = fm.count()
             return render(request,'coreapp/search.html',{'searched':searched,'fm':fm, 'count_data':count_data})
         else:
