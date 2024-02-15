@@ -1,5 +1,15 @@
 # To-Do-List-Project
 
+-------------Everything you need to run the project------------
+* Prorect file Dawonload and unzip this file
+* Run windows cmd/ git bash/ IDE
+* Create env
+  -python -m venv env
+  -env/scripts/activate
+  -pip install django
+* Run This Python Project
+
+
 # This project is all that can work :-------
 
 ---Note :  After running the project, add the login to the URL, it won't cover the entire project view.---
