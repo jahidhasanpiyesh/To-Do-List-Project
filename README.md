@@ -4,9 +4,9 @@
 * Prorect file Dawonload and unzip this file
 * Run windows cmd/ git bash/ IDE
 * Create env
-  -python -m venv env
-  -env/scripts/activate
-  -pip install django
+  - python -m venv env
+  - env/scripts/activate
+  - pip install django
 * Run This Python Project
 
 
