@@ -6,7 +6,7 @@
 * Create env
   - python -m venv env
   - env/scripts/activate
-  - pip install django
+  - pip install requerments.text
 * Run This Python Project
 
 
